@@ -1,0 +1,1425 @@
+<html>
+
+<head>
+	<link type="text/css" rel="stylesheet" href="/style-guide/css/fluig-style-guide.min.css" />
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/mustache/mustache-min.js"></script>
+	<script type="text/javascript" src="/style-guide/js/fluig-style-guide.min.js" charset="utf-8"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+		integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"
+		integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK"
+		crossorigin="anonymous"></script>
+
+
+	<!-- CUSTOM -->
+	<link href="/style-guide/css/fluig-style-guide-filter.min.css" rel="stylesheet" type="text/css">
+	<link href="/style-guide/css/fluig-style-guide-ratingstars.min.css" rel="stylesheet" type="text/css">
+	<script src="/style-guide/js/fluig-style-guide-filter.min.js"></script>
+	<script src="/style-guide/js/fluig-style-guide-ratingstars.min.js"></script>
+
+
+	<link rel="stylesheet" type="text/css" href="/style-guide/css/fluig-style-guide-filter.min.css">
+	<script src="/style-guide/js/fluig-style-guide-filter.min.js"></script>
+
+	<script type="text/javascript" src="/webdesk/vcXMLRPC.js"></script>
+	<script type="text/javascript" src="slc_dotacao.js"></script>
+
+
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+	<style type="text/css">
+		.Obrigatorio {
+			color: lightcoral;
+		}
+	</style>
+
+</head>
+
+<body class="fluig-style-guide">
+	<form name="form" role="form">
+
+		<input type="hidden" name="hd_numSuperior" id="numSuperior">
+		<input type="hidden" name="hdn_lastState" id="hdn_lastState">
+		<input type="hidden" name="hdn_State" id="hdn_State">
+		<input type="hidden" name="hdn_diretoria" id="hdn_diretoria">
+		<input type="hidden" name="matriculaResponsavel" id="matriculaResponsavel">
+
+		<!-- Hidden Dotação Orçamentária -->
+		<!-- <input type="hidden" name="codProjeto" id="codProjeto">
+		<input type="hidden" name="codAcao" id="codAcao">
+		<input type="hidden" name="codRecurso" id="codRecurso"> -->
+
+		<!-- Painel Dados do Solicitante -->
+
+		<div class="panel panel-default" id="SolicitacaoEvento">
+			<div class="panel-heading">
+				<div style="display: flex; justify-content: space-between; align-items: center;">
+					<h1 style="color: #fff;"> Solicitação de Apoio da UGCE</h1>
+					<div style="margin-left: auto;">
+						<img src="imagens/Logo Branca UGCE.png" title="Logo do SEBRAE" width="105" height="65">
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Inicio do Painel de Avaliação -->
+
+		<div class="panel panel-default" id="painel_avaliacao">
+			<div class="panel-heading" id="headingAvaliacao">
+				<h3 class="panel-title">
+					<b>Avaliação do Serviço</b>
+				</h3>
+			</div>
+			<div class="panel-body">
+				<div class="form-group row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="slc_Avalia">Classifique o Atendimento </label>
+							<select class="form-control" name="slc_Avalia" id="slc_Avalia">
+								<option value="">Selecione</option>
+								<option value="Satisfeito ">Satisfeito </option>
+								<option value="Parcialmente Satisfeito">Parcialmente Satisfeito</option>
+								<option value="Insatisfeito ">Insatisfeito</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="txt_Comentario">Comentário:</label>
+							<textarea class="form-control" rows="4" name="txt_Comentario"
+								id="txt_Comentario"></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Fim do Painel -->
+
+		<div class="panel panel-default" id="DadoSolicitante">
+			<div class="panel-heading" id="headingSolicitante">
+				<h3 class="panel-title"><i class="flaticon flaticon-account-circle icon-md"></i> Dados do Solicitante
+				</h3>
+			</div>
+
+			<div class="panel-body" id="borda1">
+				<div class="panel-body col-md-8">
+					<div class="form-group row">
+						<div class="col-md-3">
+							<label for="cmb_NomeSolicitante">Nome Solicitante</label>
+							<select name="cmb_NomeSolicitante" id="cmb_NomeSolicitante" dataset="colleague"
+								datasetkey="colleagueId" datasetvalue="colleagueName" class="form-control" readonly>
+							</select>
+						</div>
+						<div class="col-md-3">
+							<label for="dt_DataSolicit">Data e Hora</label>
+							<input type="text" class="form-control" name="dt_DataSolicit" id="dt_DataSolicit">
+						</div>
+						<div class="col-md-3">
+							<label for="txt_NumProc">Numero da Solicitação</label>
+							<input type="text" class="form-control" name="txt_NumProc" id="txt_NumProc">
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-md-3">
+							<label for="cmb_GerenteSolicitante">Gerente / Diretor</label>
+							<input type="text" class="form-control" name="cmb_GerenteSolicitante"
+								id="cmb_GerenteSolicitante" readonly>
+							<!--<select 
+								name="cmb_GerenteSolicitante" 
+								id="cmb_GerenteSolicitante" 
+								dataset="dsc_Unidades" 
+								datasetkey="Matricula" 
+								datasetvalue="NomeGerente" 
+								class="form-control">
+							 </select>-->
+						</div>
+						<div class="col-md-3">
+							<label for="dtEntrega">Data da Entrega para o Evento:</label>
+							<input type="datetime-local" name="dtEntrega" id="dtEntrega" class="form-control">
+						</div>
+						<div class="col-md-4">
+							<label for="zm_UnidadeSolicitante">Unidade Solicitante</label>
+							<input type="text" class="form-control" name="cmb_UnidadeSolicitante"
+								id="cmb_UnidadeSolicitante" readonly>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Fim do Painel -->
+
+		<!-- Painel Dados da Solicitação -->
+
+		<div class="panel panel-default">
+			<div class="panel-heading" id="headingSolicitacao">
+				<h3 class="panel-title"><i class="flaticon flaticon-form-list icon-md" aria-hidden="true"></i>
+					Dados da Solicitação
+				</h3>
+			</div>
+			<div class="panel-body col-md-8">
+				<div class="form-group row">
+					<div class="col-md-12">
+						<div class="checkbox-inline">
+							<input type="checkbox" id="Eventos" name="Eventos">
+							<label for="Eventos">Eventos Comerciaisﾠ</label>
+						</div>
+						<div class="checkbox-inline">
+							<input type="checkbox" id="Coffee" name="Coffee">
+							<label for="Coffee">Coffee Breakﾠﾠ</label>
+						</div>
+						<div class="checkbox-inline">
+							<input type="checkbox" id="Logo" name="Logo">
+							<label for="Logo">Identidade Visual</label>
+						</div>
+						<div class="checkbox-inline">
+							<input type="checkbox" id="Jornada" name="Jornada">
+							<label for="Jornada">Jornada do Cliente</label>
+						</div>
+						<br>
+						<div class="checkbox-inline">
+							<input type="checkbox" id="Estrategia" name="Estrategia">
+							<label for="Estrategia">Estratégia Comercial</label>
+						</div>
+						<div class="checkbox-inline">
+							<input type="checkbox" id="Imprensa" name="Imprensa">
+							<label for="Imprensa">Imprensaﾠﾠﾠﾠﾠ</label>
+						</div>
+						<div class="checkbox-inline">
+							<input type="checkbox" id="Grafica" name="Grafica">
+							<label for="Grafica">Serviços Gráficos </label>
+						</div>
+						<div class="checkbox-inline">
+							<input type="checkbox" id="Cobertura" name="Cobertura">
+							<label for="Cobertura">Coberturas Gerais</label>
+						</div>
+						<div class="checkbox-inline">
+							<input type="checkbox" id="Outros" name="Outros">
+							<label for="Outros">Outros</label>
+						</div>
+					</div>
+				</div>
+
+				<!-- Painel da Tabela de Demanda -->
+				<div class="panel panel-default" style="display: none">
+					<div class="panel-heading">
+						<h3 class="panel-title">SolicitaÃ§Ã£o</h3>
+					</div>
+					<div class="panel-body" style="display: none">
+						<div class="form-group table-responsive">
+							<div class="table">
+								<tbody>
+									<!--<tr>
+											<td><button type="button" class="addItem" id="addItem" onclick="addItens();">Inserir SolicitaÃ§Ã£o <b>+</b></button></td>
+											
+										</tr>-->
+									<tr>
+										<td>
+											<table id="dadosItem" tablename="dadosItem" class="table table-hover"
+												noaddbutton="true" nodeletebutton="true">
+												<thead>
+													<tr>
+														<td></td>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>
+															<span
+																class="fluig-style-guide fs-display-block fs-md-space">
+																<i type="button"
+																	class="fluigicon fluigicon-trash fluigicon-md delItem"
+																	id="delItem" name="delItem"
+																	onclick="Javascript:fnCustomDeleteItem(this);"
+																	style="cursor:pointer"></i>
+															</span>
+														</td>
+														<td>
+															<div class="form-group">
+																<label for="tipo_solicitacao">Tipo de SolicitaÃ§Ã£o
+																	<span
+																		class="Obrigatorio"><strong>*</strong></span>:</label>
+																<input class="form-control" name="tipo_solicitacao"
+																	id="tipo_solicitacao">
+
+															</div>
+														</td>
+														<td>
+															<div class="form-group">
+																<label for="detalhes">Detalhes da SolicitaÃ§Ã£o</label>
+																<textarea rows=2 name="detalhe" id="detalhe"
+																	class="form-control"></textarea>
+															</div>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</td>
+									</tr>
+								</tbody>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Fim do Painel -->
+
+				<!-- Inicio da Seção de Eventos -->
+				<div class="panel panel-default">
+					<div class="panel-heading" id="painelEventos">
+						<h4 class="panel-title">
+							<a class="collapse-icon collapsed" data-toggle="collapse" data-parent="#accordion"
+								href="#Eventos">
+								<strong>Eventos</strong>
+							</a>
+						</h4>
+					</div>
+					<div id="eventos" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="form-group row">
+								<div class="col-md-3">
+									<label for="digitalPresencial">Será qual tipo de Evento? </label>
+									<select type="text" name="digitalPresencial" id="digitalPresencial"
+										class="form-control">
+										<option value="">Selecione uma Opção</option>
+										<option value="1">Presencial</option>
+										<option value="2">Digital</option>
+										<option value="3">Híbrido</option>
+									</select>
+								</div>
+							</div>
+
+							<!-- Seção Digital -->
+							<h1 id="DigitalName"><strong>Evento Digital</strong></h1>
+
+							<div class="form-group row">
+								<div class="col-md-3" id="nomeEventoComercial">
+									<label for="nomeEvento">Nome do Evento:</label>
+									<input type="text" name="nomeEvento" id="nomeEvento" class="form-control">
+								</div>
+								<div class="col-md-3" id="publicoEventoComercial">
+									<label for="publicoEvento">Público-Alvo:</label>
+									<input type="text" name="publicoEvento" id="publicoEvento" class="form-control">
+								</div>
+								<div class="col-md-2" id="CidUFComercial">
+									<label for="CidUF">Cidade/Uf: <span class="Obrigatorio"></label>
+									<input type="text" name="CidUF" id="CidUF" class="form-control">
+								</div>
+								<div class="col-md-2" id="dtInicialComercial">
+									<label for="dtEvtInicio">Data Inicial:</label>
+									<input type="datetime-local" name="dtEvtInicio" id="dtEvtInicio"
+										class="form-control">
+								</div>
+								<div class="col-md-2" id="dtFinalComercial">
+									<label for="dtEvtFinal">Data Final:</label>
+									<input type="datetime-local" name="dtEvtFinal" id="dtEvtFinal" class="form-control">
+								</div>
+							</div>
+							<div class="form-group row">
+								<div class="col-md-3" id="localEventoComercial">
+									<label for="LocalEvento">Local do Evento: </label>
+									<input type="text" name="LocalEvento" id="LocalEvento" class="form-control">
+								</div>
+								<div class="col-md-5" id="linkEventoComercial">
+									<label for="linkEvento">Link da Inscrição: </label>
+									<input type="text" name="linkEvento" id="linkEvento" class="form-control">
+								</div>
+								<div class="col-md-2" id="metaEventoComercial">
+									<label for="metaEvento">Meta de Inscrição: </label>
+									<input type="number" name="metaEvento" id="metaEvento" class="form-control">
+								</div>
+								<div class="col-md-2" id="metaFaturamentoComercial">
+									<label for="metaFatura">Meta Faturamento: </label>
+									<input type="number" name="metaFatura" id="metaFatura" class="form-control">
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<div class="col-md-3" id="estiloDigitalComercial">
+									<label for="estiloDigital">Possui um Estilo Visual? </label>
+									<select type="text" name="estiloDigital" id="estiloDigital" class="form-control">
+										<option value="" selected disabled>Selecione uma Opção</option>
+										<option value="sim">Sim</option>
+										<option value="nao">Não</option>
+									</select>
+								</div>
+
+								<div class="col-md-5" id="mensagemEventoComercial">
+									<label for="mensagemEvento">Mensagem-Chave: </label>
+									<input type="text" name="mensagemEvento" id="mensagemEvento" class="form-control">
+								</div>
+								<div class="col-md-4" id="coresEventoComercial">
+									<label for="coresEvento">Cores Preferenciais: </label>
+									<input type="text" name="coresEvento" id="coresEvento" class="form-control">
+								</div>
+							</div>
+							<div class="form-group row">
+								<div class="col-md-3" id="identidadeEventoComercial">
+									<label for="identidadeEvento">Estilo Visual Desejado: </label>
+									<input type="text" name="identidadeEvento" id="identidadeEvento"
+										class="form-control">
+								</div>
+								<div class="col-md-2" id="responsavelEventoComercial">
+									<label for="respDemanda">Responsável:<span
+											class="Obrigatorio"><strong>*</strong></span></label>
+									<select name="cmb_Responsavel" id="cmb_Responsavel" dataset="colleague"
+										datasetkey="colleagueId" datasetvalue="colleagueName" class="form-control">
+									</select>
+								</div>
+								<div class="col-md-4" id="progEventoComercial">
+									<label for="progEvento">Programação/Palestrantes:</label>
+									<textarea rows="4" name="progEvento" id="progEvento"
+										class="form-control"></textarea><br><br>
+								</div>
+								<div class="col-md-2" id="portalProjetoComercial"><label style="text-align: center;">
+										<br> <input type="checkbox" name="portalProjComercial" id="portalProjComercial">
+										Conteúdo será postado no Portal SEBRAE</label></div>
+
+								<!-- Seção Presencial  -->
+								<h1 id="PresencialName"><strong>Evento Presencial</strong></h1>
+
+								<div class="form-group row">
+									<div class="col-md-3" id="nomeEventoPresencial">
+										<label for="nomeEventoPres">Nome do Evento:</label>
+										<input type="text" name="nomeEventoPres" id="nomeEventoPres"
+											class="form-control">
+									</div>
+									<div class="col-md-3" id="publicoEventoPresencial">
+										<label for="publicoEventoPres">Público-Alvo:</label>
+										<input type="text" name="publicoEventoPres" id="publicoEventoPres"
+											class="form-control">
+									</div>
+									<div class="col-md-2" id="CidUFPresencial">
+										<label for="CidUFPres">Cidade/Uf: <span class="Obrigatorio"></label>
+										<input type="text" name="CidUFPres" id="CidUFPres" class="form-control">
+									</div>
+									<div class="col-md-2" id="dtInicialPresencial">
+										<label for="dtEvtInicioPres">Data Inicial:</label>
+										<input type="datetime-local" name="dtEvtInicioPres" id="dtEvtInicioPres"
+											class="form-control">
+									</div>
+									<div class="col-md-2" id="dtFinalPresencial">
+										<label for="dtEvtFinalPres">Data Final:</label>
+										<input type="datetime-local" name="dtEvtFinalPres" id="dtEvtFinalPres"
+											class="form-control">
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-md-3" id="qualiEventoComercial">
+										<label for="qualiProjeto">Meta Qualitativa: </label>
+										<input type="text" name="qualiProjeto" id="qualiProjeto" class="form-control">
+									</div>
+									<div class="col-md-3" id="quantEventoComercial">
+										<label for="quantProjeto">Meta Quantitativa: </label>
+										<input type="number" name="quantProjeto" id="quantProjeto" class="form-control">
+									</div>
+									<div class="col-md-4" id="canalEventoComercial">
+										<label for="canalProjeto">Canais de Atendimento: </label>
+										<input type="text" name="canalProjeto" id="canalProjeto" class="form-control">
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-md-3" id="identidadeProjetoComercial">
+										<label for="identidadeProjeto">Estilo Visual Desejado: </label>
+										<input type="text" name="identidadeProjeto" id="identidadeProjeto"
+											class="form-control">
+									</div>
+									<div class="col-md-4" id="coresProjetoComercial">
+										<label for="coresProjeto">Cores Preferenciais: </label>
+										<input type="text" name="coresProjeto" id="coresProjeto" class="form-control">
+									</div>
+
+								</div>
+								<div class="form-group row">
+									<div class="col-md-4" id="descProjComercial">
+										<label for="descPresencial">Descrição do Projeto/Programa:</label>
+										<textarea rows="5" name="descPresencial" id="descPresencial"
+											class="form-control"></textarea>
+									</div>
+									<div class="col-md-2" id="portalProjDigital"><label style="text-align: center;">
+											<br> <input type="checkbox" name="portalProjeto" id="portalProjeto">
+											Conteúdo será postado no Portal SEBRAE</label></div>
+									<div class="form-group table-responsive">
+
+										<div class="table" id="tableProjComercial">
+											<thead>
+											</thead>
+											<tbody>
+												<tr>
+													<td>
+														<div class="col-md-3">
+															<div class="form-group" id="input1">
+															</div>
+														</div>
+														<div class="col-md-4">
+															<div class="form-group" id="input2">
+															</div>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<div class="col-md-2">
+															<div class="form-group row">
+																<div class="bs-docs-popover-hover">
+																	<br>
+																	<button type="button" class="btn btn-default"
+																		data-comp-show-modal="small" id="addItem"
+																		onclick="adicionarItem();">Inserir Demanda
+																		<b>+</b></button>
+																</div>
+
+															</div>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<div class="col-md-7">
+															<table
+																class="table table-bordered table-striped table-hover certa"
+																noaddbutton="true" nodeletebutton="true">
+																<thead>
+																	<tr>
+																		<td class="col-md-3">Serviços
+																		</td>
+																		<td class="col-md-6">Detalhes</td>
+																		<td class="col-md-1">Remove</td>
+																	</tr>
+																</thead>
+
+																<tbody>
+																</tbody>
+
+															</table>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Fim da Seção de Eventos -->
+
+				<!-- Inicio da Seção Coffee Break -->
+				<div class="panel panel-default">
+					<div class="panel-heading" id="painelCoffee">
+						<h4 class="panel-title">
+							<a class="collapse-icon" data-toggle="collapse" data-parent="#accordion" href="#Coffee">
+								<strong>Coffee Break</strong>
+							</a>
+						</h4>
+					</div>
+					<div id="coffee" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="form-group row">
+								<div class="col-md-3">
+									<label for="nomeBreak">Nome do Evento:</label>
+									<input type="text" name="nomeBreak" id="nomeBreak" class="form-control">
+								</div>
+								<div class="col-md-3">
+									<label for="dataBreak">Data do Evento:</label>
+									<input type="date" name="dataBreak" id="dataBreak" class="form-control">
+								</div>
+								<div class="col-md-3">
+									<label for="quantBreak">Quantidade de Pessoas:</label>
+									<input type="number" name="quantBreak" id="quantBreak" class="form-control">
+								</div>
+							</div>
+							<div class="form-group row">
+								<div class="col-md-2">
+									<label for="horaInicioBreak">Horário
+										Inicial do Evento:</label>
+									<input type="time" name="horaInicioBreak" id="horaInicioBreak" class="form-control">
+								</div>
+								<div class="col-md-2">
+									<label for="horaFinalBreak">Horário Final do Evento:</label>
+									<input type="time" name="horaFinalBreak" id="horaFinalBreak" class="form-control">
+								</div>
+								<div class="col-md-2">
+									<label for="horarioBreak">Horário á ser servido o Coffee Break:</label>
+									<input type="time" name="horarioBreak" id="horarioBreak" class="form-control">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Fim da Seção Coffee Break -->
+
+				<!-- Inicio da Seção Identidade Visual -->
+				<div class="panel panel-default">
+					<div class="panel-heading" id="painelLogo">
+						<h4 class="panel-title">
+							<a class="collapse-icon" data-toggle="collapse" data-parent="#accordion" href="#Logo">
+								<strong>Identidade Visual</strong>
+							</a>
+						</h4>
+					</div>
+					<div id="logo" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="form-group row">
+								<div class="col-md-4">
+									<label for="nomeLogo">Nome do Evento/Projeto:</label>
+									<input type="text" name="nomeLogo" id="nomeLogo" class="form-control">
+								</div>
+								<div class="col-md-4">
+									<label for="chaveLogo">Palavras-Chave para a Marca:</label>
+									<input type="text" name="chaveLogo" id="chaveLogo" class="form-control">
+								</div>
+								<div class="col-md-4">
+									<label for="mensagemLogo">Próposito da Marca:</label>
+									<input type="text" name="mensagemLogo" id="mensagemLogo" class="form-control">
+								</div>
+							</div>
+							<div class="form-group row">
+								<div class="col-md-4">
+									<label for="tipoServico">Tipo de Serviço Solicitado:</label>
+									<select name="tipoServico" id="tipoServico" class="form-control">
+										<option value="logo">Criação de Logo</option>
+										<option value="identidade">Identidade Visual Completa</option>
+									</select>
+								</div>
+								<div class="col-md-4">
+									<label for="designLogo">Estilo de Design Desejado:</label>
+									<input type="text" name="designLogo" id="designLogo" class="form-control">
+								</div>
+								<div class="col-md-4">
+									<label for="coresLogo">Cores Preferenciais:</label>
+									<input type="text" name="coresLogo" id="coresLogo" class="form-control">
+								</div>
+							</div>
+							<div class="form-group row">
+								<div class="col-md-4">
+									<label for="visualLogo">Elementos Visuais:</label>
+									<input type="text" name="visualLogo" id="visualLogo" class="form-control">
+								</div>
+								<div class="col-md-4">
+									<label for="tipografiaLogo">Tipografia Escolhida:</label>
+									<input type="text" name="tipografiaLogo" id="tipografiaLogo" class="form-control">
+								</div>
+							</div>
+							<div class="form-group row">
+								<div class="col-md-6">
+									<label for="descLogo">Descrição do Evento/Projeto:</label>
+									<textarea rows="5" name="descLogo" id="descLogo" class="form-control"></textarea>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Fim da Seção Logo/Identidade Visual -->
+
+				<!-- Inicio da Seção Jornada do Cliente -->
+				<div class="panel panel-default">
+					<div class="panel-heading" id="painelLanding">
+						<h4 class="panel-title">
+							<a class="collapse-icon" data-toggle="collapse" data-parent="#accordion" href="#Jornada">
+								<strong>Jornada do Cliente</strong>
+							</a>
+						</h4>
+					</div>
+					<div id="jornada" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="form-group row">
+								<div class="col-md-3">
+									<label for="trilhaMarketing">Qual trilha deseja seguir?</label>
+									<select type="text" name="trilhaMarketing" id="trilhaMarketing"
+										class="form-control">
+										<option value="">Selecione uma Opção</option>
+										<option value="landing">Landing Page</option>
+										<option value="disp">Disparo de SMS</option>
+										<option value="email">Email Marketing</option>
+										<option value="jornadas">Jornada Completa</option>
+									</select>
+								</div>
+								<div class="col-md-3">
+									<label for="nomeMarketing">Nome do Evento/Ação:</label>
+									<input type="text" name="nomeMarketing" id="nomeMarketing" class="form-control">
+								</div>
+								<div class="col-md-3">
+									<label for="dtMarketing">Data e Hora do Evento</label>
+									<input type="datetime-local" name="dtMarketing" id="dtMarketing"
+										class="form-control">
+								</div>
+								<div class="col-md-3">
+									<label for="LocalMarketing">Local do Evento:</label>
+									<input type="text" name="LocalMarketing" id="LocalMarketing" class="form-control">
+								</div>
+							</div>
+							<div class="form-group row">
+								<div class="col-md-3">
+									<label for="tipoMarketing">Será Presencial ou Digital?</label>
+									<select type="text" name="tipoMarketing" id="tipoMarketing" class="form-control">
+										<option value="">Selecione uma Opção</option>
+										<option value="presencial">Presencial</option>
+										<option value="digital">Digital</option>
+									</select>
+								</div>
+								<div class="col-md-3">
+									<label for="publicoMarketing">Público-Alvo:</label>
+									<input type="text" name="publicoMarketing" id="publicoMarketing"
+										class="form-control">
+								</div>
+								<div class="col-md-3">
+									<label for="metaMarketing">Meta de Atendimento: </label>
+									<input type="number" name="metaMarketing" id="metaMarketing" class="form-control">
+								</div>
+								<div class="col-md-3">
+									<label for="baseMarketing">Possui Dados para Divulgação?</label>
+									<select type="text" name="baseMarketing" id="baseMarketing" class="form-control">
+										<option value="">Selecione uma Opção</option>
+										<option value="Sim">Sim</option>
+										<option value="Não">Não</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Fim da Seção Jornada do Cliente -->
+
+				<!-- Inicio da Seção Estratégia Comercial -->
+				<div class="panel panel-default">
+					<div class="panel-heading" id="painelConsultoria">
+						<h4 class="panel-title">
+							<a class="collapse-icon" data-toggle="collapse" data-parent="#accordion" href="#Estrategia">
+								<strong>Estratégia Comercial</strong>
+							</a>
+						</h4>
+					</div>
+					<div id="estrategia" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="form-group row">
+								<div class="col-md-3" id="nomeEventoConsultoria">
+									<label for="nomeConsultoria">Nome do Evento ou Ação:</label>
+									<input type="text" name="nomeConsultoria" id="nomeConsultoria" class="form-control">
+								</div>
+								<div class="col-md-3" id="dtEventoConsultoria">
+									<label for="dtConsultoria">Data e Hora do Evento</label>
+									<input type="datetime-local" name="dtConsultoria" id="dtConsultoria"
+										class="form-control">
+								</div>
+								<div class="col-md-3" id="valoresConsultoria">
+									<label for="valorConsultoria">Evento gratuito ou pago?</label>
+									<select type="text" name="valorConsultoria" id="valorConsultoria"
+										class="form-control">
+										<option value="">Selecione uma Opção</option>
+										<option value="gratuito">Gratuito</option>
+										<option value="pago">Pago</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group row" id="camposConsultoria">
+								<div class="col-md-3" id="campoConsultoria">
+									<label for="tipoConsultoria">Será Presencial ou Digital?</label>
+									<select type="text" name="tipoConsultoria" id="tipoConsultoria"
+										class="form-control">
+										<option value="">Selecione uma Opção</option>
+										<option value="presencial">Presencial</option>
+										<option value="digital">Digital</option>
+									</select>
+								</div>
+								<div class="col-md-3 metaAtendConsultoria">
+									<label for="metaConsultoria">Possui Meta de Atendimento?</label>
+									<select type="text" name="metaConsultoria" id="metaConsultoria"
+										class="form-control">
+										<option value="">Selecione uma Opção</option>
+										<option value="Sim">Sim</option>
+										<option value="Não">Não</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Fim da Seção Consultoria Comercial -->
+
+				<!-- Inicio da Seção Imprensa -->
+				<div class="panel panel-default">
+					<div class="panel-heading" id="painelImprensa">
+						<h4 class="panel-title">
+							<a class="collapse-icon" data-toggle="collapse" data-parent="#accordion" href="#Imprensa">
+								<strong>Assessoria de Imprensa</strong>
+							</a>
+						</h4>
+					</div>
+					<div id="imprensa" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="form-group row">
+								<div class="col-md-4">
+									<label for="prodJornalistico">Produção Jornalistica:</label>
+									<input type="text" name="prodJornalistico" id="prodJornalistico"
+										class="form-control">
+								</div>
+								<div class="col-md-4">
+									<label for="textoJornalistico">Texto Jornalistico - Comunicado:</label>
+									<input type="text" name="textoJornalistico" id="textoJornalistico"
+										class="form-control">
+								</div>
+								<div class="col-md-4">
+									<label for="ReleaseJornalistico">Release (Sugestão de Pauta):</label>
+									<textarea rows="5" name="ReleaseJornalistico" id="ReleaseJornalistico"
+										class="form-control"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Fim da Seção Imprensa -->
+
+				<!-- Painel da Tabela de Serviços Gráficos -->
+				<div class="panel panel-default" style="display: none">
+					<div class="panel-heading">
+						<h3 class="panel-title">SolicitaÃ§Ã£o</h3>
+					</div>
+					<div class="panel-body" style="display: none">
+						<div class="form-group table-responsive">
+							<div class="table">
+								<tbody>
+									<!--<tr>
+											<td><button type="button" class="addItem" id="addItem" onclick="addItens();">Inserir SolicitaÃ§Ã£o <b>+</b></button></td>
+											
+										</tr>-->
+									<tr>
+										<td>
+											<table id="dadosItemGrafica" tablename="dadosItemGrafica"
+												class="table table-hover" noaddbutton="true" nodeletebutton="true">
+												<thead>
+													<tr>
+														<td></td>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>
+															<span
+																class="fluig-style-guide fs-display-block fs-md-space">
+																<i type="button"
+																	class="fluigicon fluigicon-trash fluigicon-md delItem"
+																	id="delGrafica" name="delGrafica"
+																	onclick="Javascript:fnCustomDeleteItem(this);"
+																	style="cursor:pointer"></i>
+															</span>
+														</td>
+														<td>
+															<div class="form-group">
+																<label for="tipo_grafica">Tipo de SolicitaÃ§Ã£o <span
+																		class="Obrigatorio"><strong>*</strong></span>:</label>
+																<input class="form-control" name="tipo_grafica"
+																	id="tipo_grafica">
+
+															</div>
+														</td>
+														<td>
+															<div class="form-group">
+																<label for="detalhe_grafica">Detalhes da
+																	SolicitaÃ§Ã£o</label>
+																<textarea rows=2 name="detalhe_grafica"
+																	id="detalhe_grafica"
+																	class="form-control"></textarea>
+															</div>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</td>
+									</tr>
+								</tbody>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Fim do Painel -->
+
+				<!-- Inicio da Seção Serviços Gráficos -->
+				<div class="panel panel-default">
+					<div class="panel-heading" id="painelGrafica">
+						<h4 class="panel-title">
+							<a class="collapse-icon" data-toggle="collapse" data-parent="#accordion" href="#Grafica">
+								<strong>Serviços Gráficos</strong>
+							</a>
+						</h4>
+					</div>
+					<div id="grafica" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="form-group row">
+								<div class="col-md-4">
+									<label for="eventoGrafica">Nome do Evento:</label>
+									<input type="text" name="eventoGrafica" id="eventoGrafica" class="form-control">
+								</div>
+								<div class="col-md-4">
+									<label for="arteGrafica">Possui uma Arte de Referência?:</label>
+									<select type="text" name="arteGrafica" id="arteGrafica" class="form-control">
+										<option value="">Selecione uma Opção</option>
+										<option value="simGrafica">Sim</option>
+										<option value="naoGrafica">Não</option>
+									</select>
+								</div>
+								<div class="col-md-4">
+									<label for="logoGrafica">Possui uma Logo de Referência?:</label>
+									<select type="text" name="logoGrafica" id="logoGrafica" class="form-control">
+										<option value="">Selecione uma Opção</option>
+										<option value="simGrafica">Sim</option>
+										<option value="naoGrafica">Não</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="form-group table-responsive">
+								<div class="table" id="tableGraficaComercial">
+									<thead>
+									</thead>
+									<tbody>
+										<tr>
+											<td>
+												<div class="col-md-3">
+													<div class="form-group" id="inputGrafica1">
+													</div>
+												</div>
+												<div class="col-md-4">
+													<div class="form-group" id="inputGrafica2">
+													</div>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<div class="col-md-2">
+													<div class="form-group row">
+														<div class="bs-docs-popover-hover">
+															<br>
+															<button type="button" class="btn btn-default"
+																data-comp-show-modal="small" id="addGrafica"
+																onclick="adicionarItem2();">Inserir Demanda
+																<b>+</b></button>
+														</div>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<div class="col-md-7">
+													<table class="table table-bordered table-striped table-hover errada"
+														noaddbutton="true" nodeletebutton="true">
+														<thead>
+															<tr>
+																<td class="col-md-3">Serviços Gráficos</td>
+																<td class="col-md-6">Detalhes</td>
+																<td class="col-md-1">Remove</td>
+															</tr>
+														</thead>
+
+														<tbody>
+														</tbody>
+
+													</table>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Fim da Seção de Serviços Gráficos -->
+
+				<!-- Inicio da Seção Cobertura -->
+				<div class="panel panel-default">
+					<div class="panel-heading" id="painelCobertura">
+						<h4 class="panel-title">
+							<a class="collapse-icon" data-toggle="collapse" data-parent="#accordion" href="#Cobertura">
+								<strong>Cobertura</strong>
+							</a>
+						</h4>
+					</div>
+					<div id="cobertura" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="form-group row">
+								<div class="col-md-4">
+									<label for="nomeEventoCobertura">Nome do Evento:</label>
+									<input type="text" name="nomeEventoCobertura" id="nomeEventoCobertura"
+										class="form-control">
+								</div>
+								<div class="col-md-4">
+									<label for="escolhaCobertura">Estilo de Cobertura escolhida:</label>
+									<select type="text" name="escolhaCobertura" id="escolhaCobertura"
+										class="form-control">
+										<option value="" selected disabled>Selecione uma Opção</option>
+										<option value="cobertFoto">Cobertura Fotográfica</option>
+										<option value="cobertRedes">Cobertura Redes Sociais</option>
+										<option value="cobertJorn">Cobertura Jornalística</option>
+										<option value="cobertComp">Cobertura Completa</option>
+									</select>
+								</div>
+								<div class="col-md-2" id="dtInicialCobertura">
+									<label for="dtEvtInicioCobert">Data Inicial:</label>
+									<input type="datetime-local" name="dtEvtInicioCobert" id="dtEvtInicioCobert"
+										class="form-control">
+								</div>
+								<div class="col-md-2" id="dtFinalCobertura">
+									<label for="dtEvtFinalCobert">Data Final:</label>
+									<input type="datetime-local" name="dtEvtFinalCobert" id="dtEvtFinalCobert"
+										class="form-control">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Fim da Seção Cobertura -->
+
+				<!-- Inicio da Seção Outros -->
+				<div class="panel panel-default">
+					<div class="panel-heading" id="painelCobertura">
+						<h4 class="panel-title">
+							<a class="collapse-icon" data-toggle="collapse" data-parent="#accordion" href="#Outros">
+								<strong>Outros</strong>
+							</a>
+						</h4>
+					</div>
+					<div id="outros" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="form-group row">
+								<div class="col-md-4">
+									<label for="tituloOutros">Título do Pedido:</label>
+									<input type="text" name="tituloOutros" id="tituloOutros" class="form-control">
+								</div>
+								<div class="col-md-4">
+									<label for="descOutros">Descrição do Pedido:</label>
+									<textarea rows="5" name="descOutros" id="descOutros"
+										class="form-control"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Fim da Seção Cobertura -->
+			</div>
+
+			<!-- Inicio da Seção do Card de Informações -->
+			<div class="panel-body">
+				<div class="card" id="card_dimi">
+					<div class="card-body">
+						<h3 class="card-title">
+							<script src="https://cdn.lordicon.com/ritcuqlt.js"></script>
+							<lord-icon src="https://cdn.lordicon.com/wdqztrtx.json" trigger="loop"
+								colors="primary:#722F37" style="width: 25px;height:25px;padding-top: 4px;">
+							</lord-icon>
+							Observação:
+						</h3>
+						<p class="card-text">Caso precise solicitar mais de um item, marque os itens desejados e
+							preencha os campos de cada um. Cada instrução tem seu nome indicando para qual aba se
+							refere.</p>
+						<ul>
+							<div id="ad">
+								<li><strong><u>Instruções:</u></strong></li>
+								<ol>
+									<li><strong>Caso possua um Estilo Visual já desenvolvido não marque e preencha o
+											campo de Logo/Identidade Visual</strong></li><br>
+
+									<li><strong>Eventos - Defina a mensagem principal que será
+											transmitida na campanha, destacando os benefícios e diferencias do
+											evento. Faça isso no Campo de Mensagem-Chave.</strong></li><br>
+
+									<li><strong>Identidade Visual - Estilo de Design Desejado, deve ser
+											descrito
+											o estilo de design que você imagina para o Logotipo/Identidade Visual,
+											como
+											minimalista, elegante, lúdico, etc.</strong>
+									</li><br>
+
+									<li><strong>Jornada Completa - Escolha uma opção de trilha baseado no que deseja,
+											caso precise de todos os citados escolha a opção de Jornada Completa.
+											Assim terá todas as opções definidas.</strong>
+									</li><br>
+
+									<li><strong>Jornada Completa - Outras Informações necessárias à campanha serão
+											solicitadas via e-mail pelo devido responsável pela tarefa na UGCE</strong>
+									</li><br>
+
+									<li><strong>Caso deseje receber o Suporte de um consultor especializado em
+											estratégia
+											comercial, selecione a opção e preencha os campos que aparecerão para
+											prosseguir com a consultoria.</strong>
+									</li><br>
+
+									<li><strong>Caso seu pedido não se encaixe em nenhum dos indicados, marque a opção "Outros"
+										e preencha os campos com as informações necessárias para o seu pedido.</strong>
+								</li>
+								</ol>
+							</div>
+						</ul>
+
+					</div>
+				</div>
+			</div>
+			<!-- Fim da Seção do Card de Informações -->
+		</div>
+		<!-- Fim do Painel -->
+
+		<!-- Painel Detalhes da Demanda -->
+		<div class="panel panel-default">
+			<div class="panel-heading" id="headingDetalhes">
+				<h3 class="panel-title"><i class="material-icons" style="font-size:24px">add_to_queue</i> Detalhes
+					da
+					Demanda</h3>
+			</div>
+			<div class="panel-body">
+
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<td>
+
+								</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									<div class="col-md-2">
+										<button type="button" class="waves-effect waves-light btn btn-default"
+											id="addRateio" onclick="addRateioz();">Inserir Dotação Orçamentária
+											<b>+</b></button>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<table id="dadosrateio" tablename="dadosrateio" class="table table-hover"
+										noaddbutton="true" nodeletebutton="true">
+										<thead>
+											<tr>
+												<td></td>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>
+													<span class="fluig-style-guide fs-display-block fs-md-space">
+														<i type="button"
+															class="fluigicon fluigicon-trash fluigicon-md delRateio"
+															id="deleta_rateio" name="deleta_rateio"
+															onclick="Javascript:fnCustomDelete(this);"
+															style="cursor:pointer">
+														</i>
+													</span>
+												</td>
+												<td>
+
+													<div class="form-group row">
+
+														<div class="col-md-4">
+															<label for="slc_FonteRecursos">Fonte de Recurso:</label>
+															<select class="form-control" name="slc_FonteRecursos"
+																id="slc_FonteRecursos">
+																<option value="">Selecione
+																</option>
+																<option value="CSO">Contribuição Social Ordinária -
+																	CSO
+																</option>
+																<option value="CSN">Contribuição Social Nacional -
+																	CSN
+																</option>
+															</select>
+														</div>
+													</div>
+
+													<div class="form-group row">
+
+														<div class="col-md-9" style="display: none;">
+															<label for="txt_projeto">Projeto<span
+																	class="Obrigatorio"><strong>*</strong></span>:</label>
+															<input type="zoom" id="txt_projeto" name="txt_projeto"
+																data-zoom="{
+																			'displayKey':'NOME',
+																			'datasetId':'dsprojeto',
+																			'maximumSelectionLength':'1',
+																			'placeholder':'Escolha o projeto',
+																			'fields':[
+																			{
+																				'field':'CODCCUSTO',
+																				'label':'CODIGO'
+																			},{
+																					'field':'NOME',
+																					'label':'NOME',
+																					'standard':'true'
+																			}
+																			]
+																			}">
+
+														</div>
+
+														<div class="col-md-9 projetov"></div>
+
+														<input type="hidden" name="txt_codprojeto" id="txt_codprojeto">
+
+														<div class="col-md-2">
+															<label for="txt_saldo">Saldo:</label>
+															<div class="input-group">
+																<input class="form-control mm" type="text"
+																	name="txt_saldo" id="txt_saldo" readonly>
+																<span class="input-group-addon">$</span>
+															</div>
+														</div>
+													</div>
+
+													<div class="form-group row">
+
+														<div class="col-md-9" style="display: none;">
+															<label for="txt_acao">Ação<span
+																	class="Obrigatorio"><strong>*</strong></span>:</label>
+															<input type="zoom" class="form-control" id="txt_acao"
+																name="txt_acao" data-zoom="{
+																			'displayKey':'NOME',
+																			'datasetId':'dsacao',
+																			'maximumSelectionLength':'1',
+																			'placeholder':'Escolha a ação',
+																			'fields':[
+																			{
+																				'field':'CODCCUSTO',
+																				'label':'CODIGO',
+																				'search':'true'
+																				
+																			},{
+																					'field':'NOME',
+																					'label':'NOME',
+																					'search':'true',
+																					'standard':'true'
+																			}
+																			]
+																			}">
+
+														</div>
+
+														<div class="col-md-9 acaov"></div>
+
+														<input type="hidden" name="txt_codacao" id="txt_codacao">
+														<div class="col-md-2">
+															<label for="txt_valorUtil">Valor utilizado :</label>
+															<input type="text" class="form-control" name="txt_valorUtil"
+																id="txt_valorUtil"
+																onchange="formatarMoeda(this);validateValor()">
+
+														</div>
+													</div>
+													<div class="form-group row">
+														<div class="col-md-9" style="display: none;">
+															<label for="txt_recursos">Unidade<span
+																	class="Obrigatorio"><strong>*</strong></span>:</label>
+															<input type="zoom" class="form-control" id="txt_recursos"
+																name="txt_recursos" data-zoom="{
+																			'displayKey':'NOME',
+																			'datasetId':'dsunidade',
+																			'maximumSelectionLength':'1',
+																			'placeholder':'Escolha a unidade',
+																			'fields':[
+																			{
+																				'field':'CODCCUSTO',
+																				'label':'CODIGO'
+																			},{
+																					'field':'NOME',
+																					'label':'NOME',
+																					'standard':'true'
+																			}
+																			]
+																			}">
+
+														</div>
+														<div class="col-md-9 unidadev"></div>
+														<input type="hidden" name="txt_codrecurso" id="txt_codrecurso">
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<hr>
+			</div>
+		</div>
+		
+		<!-- Fim do Painel -->
+
+		<script>
+			String.prototype.isEmpty = function () {
+				return (!this || 0 === this.length);
+			};
+
+			function email() {
+
+				var settings = {
+					"url": "https://mywebhm.am.sebrae.com.br/api/public/alert/customEmailSender",
+					"method": "POST",
+					"timeout": 20000,
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"data": JSON.stringify({
+						"to": "atic.6@am.sebrae.com.br",
+						"from": "intranet.am@am.sebrae.com.br",
+						"subject": "teste",
+						"templateId": "GestorResponsavel",
+						"dialectId": "pt_BR",
+						"param": {}
+					}),
+				};
+
+				$.ajax(settings).done(function (response) {
+					console.log(response);
+				});
+
+			}
+			var beforeSendValidate = function (numState, nextState) {
+				/*campo.value = editor.getData();
+				console.log(campo.value)*/
+				var erromsg = "";
+				//var lastState = document.getElementById("hdn_lastState").value;
+
+				console.log("-beforeSendValidate-");
+				console.log("lastState: " + document.getElementById("hdn_lastState").value);
+				console.log("numState: " + numState);
+				console.log("nextState: " + nextState);
+				//console.log("value: " + voto);
+				console.log("validate button")
+
+				if (document.getElementById("hdn_lastState").value == 10 && numState == 14 && nextState != 10) {
+					erromsg += "Atenção! a solicitação deve retornar para <strong>'Aprovação e Análise do Superior'</strong>.\n"
+				}
+
+				else if (document.getElementById("hdn_lastState").value == 5 && numState == 14 && nextState != 5) {
+					erromsg += "Atenção! a solicitação deve retornar para Atividade <strong>'UMCE - Recebe/Analisa'</strong>.\n"
+				}
+				else if (numState == 5 && nextState == 24) {
+					if (document.getElementById('respDemanda').value == '') {
+						erromsg += "Atenção! Informe o <strong>Responsavel</strong> da Atividade.\n"
+					}
+				}
+				else if (document.getElementById("hdn_lastState").value == 24 && numState == 14 && nextState != 24) {
+					erromsg += "Atenção! a solicitação deve retornar para Atividade <strong>'UMCE - Encaminhar Demanda'</strong>.\n"
+				}
+				else {
+					document.getElementById("hdn_lastState").value = numState;
+					console.log("lastState: " + document.getElementById("hdn_lastState").value);
+					console.log("numState: " + numState);
+				}
+
+				if (numState == 10 && nextState == 14) {
+					email()
+				}
+
+				if (erromsg.trim().isEmpty() == false) { throw "\n" + erromsg; }
+			}
+
+		</script>
+
+		<div class="form-group">
+			<div class="col-md-10" style="text-align:left;background: linear-gradient(to right, #FF8290, #f2b705);">
+				<img src="imagens/Logo_NTIC_Branca.png" title="Logo do ATIC REAL OFFICIAL" width="80" height="37">
+			</div>
+			<div class="col-md-2" style="text-align:right;background: linear-gradient(to right, #f2b705, #FF8290);">
+				<img src="sebrae-branco.png" title="Logo do SEBRAE" width="80" height="37">
+			</div>
+		</div>
+
+	</form>
+</body>
+<script>
+	var inicio = FLUIGC.calendar('#deadline', {
+		pickDate: true,
+		pickTime: true,
+		sideBySide: true
+	});
+	var inicio = FLUIGC.calendar('#dh_inicio', {
+		pickDate: true,
+		pickTime: true,
+		sideBySide: true
+	});
+	var fim = FLUIGC.calendar('#dh_fim', {
+		pickDate: true,
+		pickTime: true,
+		sideBySide: true
+	});
+	//FLUIGC.popover('.bs-docs-popover-hover',{ trigger: 'hover', placement: 'auto'});
+	console.log(document.getElementById('SolicitacaoEvento'))
+</script>
+
+<script>
+	function umce() {
+		var source = []
+		var ds_mat = DatasetFactory.getDataset("colleague", null, null, null);
+
+		console.log("sdfsdfsdfsdfsdfsdfsdfsdfsdaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+		for (var i = 0; i < ds_mat.values.length; i++) {
+			if (ds_mat.values[i]['groupId'] == "UARI" && ds_mat.values[i]['active'] == "true") {
+				console.log("sdfsdfsdfsdfsdfsdfsdfsdfsdaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+				source.push({
+					company: ds_mat.values[i]['colleagueName'],
+					id: ds_mat.values[i]['colleagueName']
+				})
+			}
+		}
+
+		return source
+	}
+
+	var settingsExampleArray = {
+		source: umce(),
+		displayKey: 'company',
+		multiSelect: false,
+		style: {
+			autocompleteTagClass: 'tag-blue',
+			tableSelectedLineClass: 'info'
+		},
+		table: {
+			header: [{
+				'title': 'Colaboradores',
+				'size': 'col-xs-9',
+				'dataorder': 'company',
+				'standard': true
+			}],
+			renderContent: ['company']
+		}
+	};
+	var Now = window.parent.ECM.workflowView.sequence;
+	var Visualizacao = window.parent.ECM.workflowView.stateDescription;
+	var nome = document.getElementById('respDemanda').value
+	console.log("teste: " + nome)
+	if (Now == 5 && Visualizacao != "Detalhes da Solicitação") {
+		var filter = FLUIGC.filter('#respDemanda', settingsExampleArray);
+		if (document.getElementById('hdn_lastState').value == '24') {
+			var item = {
+				company: nome,
+				id: nome
+			}
+			filter.add(item);
+		}
+	}
+
+</script>
+<script type="text/javascript" src="custom.js"></script>
+<script type="text/javascript" src="tabela.js"></script>
+
+</html>
